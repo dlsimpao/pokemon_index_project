@@ -440,7 +440,7 @@ server <- function(input, output, session) {
     border = TRUE,
     hover = TRUE,
     colnames = TRUE,
-    caption = "The table generated above originates from a KNN algorithm."
+    caption = "The table above is generated from a KNN algorithm."
   )
 
 
