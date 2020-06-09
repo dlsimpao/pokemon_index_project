@@ -1,7 +1,7 @@
 # packages
 packages <- c(
-  "shiny", "shinydashboard", "shinythemes", "shinycssloaders", "shinyWidgets", "tidyverse",
-  "scales", "knitr", "kableExtra", "ggfortify", "plotly", "FNN", "jsonlite", "lubridate", "httr",
+  "shiny", "shinydashboard", "shinythemes", "shinycssloaders", "shinyWidgets", 
+  "tidyverse", "knitr", "ggfortify", "plotly", "FNN", "jsonlite", "lubridate", "httr",
   "rvest", "shinyjs", "gtrendsR"
 )
 
