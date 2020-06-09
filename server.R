@@ -218,6 +218,8 @@ server <- function(input, output, session) {
 
 
   # Base Stats at 100
+  
+  #Include Nature influence
 
   bstat <- reactive({
     temp <- data.frame(
@@ -250,7 +252,7 @@ server <- function(input, output, session) {
     sum(input$hp2 + input$atk2 + input$def2 + input$spatk2 + input$spdef2 + input$spd2)
   })
 
-  # Works with observe #
+  # Works with observe # Resets EVs if they go over 508
   evlist <- reactive({
     a <- data.frame(
       HP = 0, Atk = 0,
@@ -429,6 +431,8 @@ server <- function(input, output, session) {
       style = "display: block; margin-left: auto; margin-right: auto"
     )
   })
+  
+
 
   output$`table-title` <- renderText("Top 10 Pokémon with Similar Stats to:")
 

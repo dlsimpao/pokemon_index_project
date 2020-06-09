@@ -46,7 +46,7 @@ ui <-
             multiple = TRUE, options = list(maxItems = 4)
           ),
           actionButton("script", "Generate Pokémon File"),
-          helpText(HTML("Generates a text file that stores Pokémon info in a specified format. <br>
+          helpText(HTML("Formats the Pokémon's information. <br>
                                                    Attributes included: Item, Ability, EVs, Nature, Moves <br>
                                                    (Websites like <a>Pokemon Showdown</a> can import this file.)")),
 
@@ -141,6 +141,7 @@ ui <-
               div(
                 class = "card",
                 tags$img(uiOutput("sprite2"), width = "auto")
+                
               )
             )
           ),
@@ -169,14 +170,41 @@ ui <-
         ),
         tabPanel(
           "About",
-          h1("About Pokémon"),
-          helpText("Taken from the Official Pokemon Website."),
+          h1("What are Pokémon?"),
+          helpText("Taken from the Official Pokémon Website."),
           p("Pokémon are creatures of all shapes and sizes who live in the wild or alongside humans. 
                                       For the most part, Pokémon do not speak except to utter their names. Pokémon are raised and 
                                       commanded by their owners (called “Trainers”). During their adventures, Pokémon grow and become 
                                       more experienced and even, on occasion, evolve into stronger Pokémon. There are currently more 
-                                      than 700 creatures that inhabit the Pokémon universe.", style = "font-size:25px")
-        )
+                                      than 700 creatures that inhabit the Pokémon universe.", style = "font-size:20px"),
+          br(),
+          h2("Concepts"),
+          p("Pokémon Battle: in a battle, Pokémon use moves to cause the opposing Pokémon to faint (when their HP reaches zero).
+            In a single battle turn, the Pokémon make moves sequentially, according to their speed and move priorities.", style = "font-size: 20px"),
+          br(),
+          p("HP: Hit points; the amount of damage the Pokemon can take", style = "font-size:20px"),
+          p("ATK: base attack; accounts for physical damage it can give", style = "font-size:20px"),
+          p("DEF: base defense; accounts for physical damage it can take", style = "font-size:20px"),
+          p("SPATK: base special attack; accounts for special damage it can give", style = "font-size:20px"),
+          p("SPDEF: base special defense; accounts for special damage it can take", style = "font-size:20px"),
+          p("SPD: base speed; determines the move order in a battle", style = "font-size:20px"),
+          br(),
+          p("EVs: Effort Values; determines the allocation of stat increases as a Pokémon levels up.", style = "font-size: 20px"),
+          p("Max EVs per stat: 252",style = "font-size:20px"),
+          p("Max Total EVs: 510", style = "font-size: 20px"),
+          p("EV training: In game, upon defeat of an opponent, certain EV stats are raised.", style = "font-size: 20px"),
+          p("IVs: Individual Values; increases base stats by one. Max: 31", style = "font-size: 20px"),
+          p("Different Natures influence base stats differently. E.g. Adamant Nature boosts the ATK stat by 10% and 
+            lowers SPATK stat by 10%.", style = "font-size: 20px"),
+          helpText("For practicality, EVs are capped at 508 and IVs are automatically included. The influence of Natures are assumed."),
+  
+          br(),
+          h2("About the App"),
+          p("I created the app to the help players in the Pokémon Video Game Competition (VGC). This app has two main panels: Home and Gtrends.
+          The first panel describes your and your rival's Pokémon stats, and allows you to compare them to understand
+          your battle advantages. Gtrends portrays the your and your rival's Pokémon popularity and their prevalence in Pokémon VGC community.", style = "font-size:20px")
+          
       )
     )
   )
+)
