@@ -41,7 +41,7 @@ ui <-
           textOutput("item-info"),
           br(),
 
-          helpText("Pokemon can learn at most 4 moves for battle."),
+          helpText("Pokémon can learn at most 4 moves for battle."),
           selectizeInput("moves", "See Learnable Moves", "-",
             multiple = TRUE, options = list(maxItems = 4)
           ),
@@ -96,7 +96,7 @@ ui <-
           textOutput("item-info2"),
           br(),
 
-          helpText("Pokemon can learn at most 4 moves for battle."),
+          helpText("Pokémon can learn at most 4 moves for battle."),
           selectizeInput("moves2", "See Learnable Moves", "-",
             multiple = TRUE, options = list(maxItems = 4)
           ),
@@ -202,7 +202,8 @@ ui <-
           h2("About the App"),
           p("I created the app to the help players in the Pokémon Video Game Competition (VGC). This app has two main panels: Home and Gtrends.
           The first panel describes your and your rival's Pokémon stats, and allows you to compare them to understand
-          your battle advantages. Gtrends portrays the your and your rival's Pokémon popularity and their prevalence in Pokémon VGC community.", style = "font-size:20px")
+          your battle advantages. Moreover, the table below the Pokémon sprites is generated through KNN algorithm and shows the 10 nearest Pokémon
+          in terms of stats. Gtrends portrays the your and your rival's Pokémon popularity and their prevalence in Pokémon VGC community.", style = "font-size:20px")
           
       )
     )
