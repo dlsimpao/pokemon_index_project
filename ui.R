@@ -4,7 +4,8 @@ ui <-
 
     # test
     tags$head(
-      tags$link(rel = "stylesheet", type = "text/css", href = "card.css")
+      tags$link(rel = "stylesheet", type = "text/css", href = "card.css"),
+      tags$link(rel = "stylesheet", type = "text/css", href = "polaroid.css")
     ),
 
     headerPanel("Poké Battle Matchup"),
@@ -165,8 +166,33 @@ ui <-
           ) # full stats at Lv. 100
         ),
         tabPanel(
-          "Gtrends",
-          h1("amazing graphs here")
+          "Trends",
+          h1("Popularity Plot"),
+          helpText("Gauged by search hits. (Proof of Concept)"),
+          actionButton("popplot","Generate Plot"),
+          br(),
+          br(),
+          div(class = "polaroid",
+            withSpinner(plotOutput("popularity"), type = 6, color = "red")
+          ),
+          br(),
+          br(),
+          
+          h1("Popular Roles"),
+          h3(strong(textOutput('role1'))),
+          p(htmlOutput('desc1')),
+          tags$head(tags$style("#desc1{
+                                 font-size: 20px;
+                                 }"
+          )
+          ),
+          h3(strong(textOutput('role2'))),
+          p(htmlOutput('desc2')),
+          tags$head(tags$style("#desc2{
+                                 font-size: 20px;
+                                 }"
+          )
+          )
         ),
         tabPanel(
           "About",
@@ -200,10 +226,10 @@ ui <-
   
           br(),
           h2("About the App"),
-          p("I created the app to the help players in the Pokémon Video Game Competition (VGC). This app has two main panels: Home and Gtrends.
+          p("I created the app to the help players in the Pokémon Video Game Competition (VGC). This app has two main panels: Home and Trends.
           The first panel describes your and your rival's Pokémon stats, and allows you to compare them to understand
           your battle advantages. Moreover, the table below the Pokémon sprites is generated through KNN algorithm and shows the 10 nearest Pokémon
-          in terms of stats. Gtrends portrays the your and your rival's Pokémon popularity and their prevalence in Pokémon VGC community.", style = "font-size:20px")
+          in terms of stats. 'Trends' portrays the your and your rival's Pokémon popularity and their prevalence in Pokémon VGC community.", style = "font-size:20px")
           
       )
     )
