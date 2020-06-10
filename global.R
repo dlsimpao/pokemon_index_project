@@ -167,32 +167,12 @@ temp <- dbstats %>% mutate(Name = case_when(
   TRUE ~ Name
 ))
 
+regexMons <- "(castform|kyogre|groudon|deoxys|wormadam|rotom|giratina|basculin|darmanitan|tornadus|landorus|thundurus|
+kyurem|meloetta|aegislash|oricorio|shaymin|keldeo|lycanroc|wishiwashi|gourgeist|pumpkaboo|meowstic|indeedee)"
+
 temp <- temp %>% mutate(Name = case_when(
-  grepl("(castform)[^-]", Name) ~ gsub("(castform)", "castform-", Name),
-  grepl("(kyogre)[^-]", Name) ~ gsub("(kyogre)", "kyogre-", Name),
-  grepl("(groudon)[^-]", Name) ~ gsub("(groudon)", "groudon-", Name),
-  grepl("(deoxys)[^-]", Name) ~ gsub("(deoxys)", "deoxys-", Name),
-  grepl("(wormadam)[^-]", Name) ~ gsub("(wormadam)", "wormadam-", Name),
-  grepl("(rotom)[^-]", Name) ~ gsub("(rotom)", "rotom-", Name),
-  grepl("(giratina)[^-]", Name) ~ gsub("(giratina)", "giratina-", Name),
-  grepl("(basculin)[^-]", Name) ~ gsub("(basculin)", "basculin-", Name),
-  grepl("(darmanitan)[^-]", Name) ~ gsub("(darmanitan)", "darmanitan-", Name),
-  grepl("(tornadus)[^-]", Name) ~ gsub("(tornadus)", "tornadus-", Name),
-  grepl("(landorus)[^-]", Name) ~ gsub("(landorus)", "landorus-", Name),
-  grepl("(thundurus)[^-]", Name) ~ gsub("(thundurus)", "thundurus-", Name),
-  grepl("(kyurem)[^-]", Name) ~ gsub("(kyurem)", "kyurem-", Name),
-  grepl("(meloetta)[^-]", Name) ~ gsub("(meloetta)", "meloetta-", Name),
-  grepl("(aegislash)[^-]", Name) ~ gsub("(aegislash)", "aegislash-", Name),
-  grepl("(oricorio)[^-]", Name) ~ gsub("(oricorio)", "oricorio-", Name),
-  grepl("(shaymin)[^-]", Name) ~ gsub("(shaymin)", "shaymin-", Name),
-  grepl("(keldeo)[^-]", Name) ~ gsub("(keldeo)", "keldeo-", Name),
-  grepl("(lycanroc)[^-]", Name) ~ gsub("(lycanroc)", "lycanroc-", Name),
-  grepl("(wishiwashi)[^-]", Name) ~ gsub("(wishiwashi)", "wishiwashi-", Name),
-  grepl("(gourgeist)[^-]", Name) ~ gsub("(gourgeist)", "gourgeist-", Name),
-  grepl("(pumpkaboo)[^-]", Name) ~ gsub("(pumpkaboo)", "pumpkaboo-", Name),
-  grepl("(meowstic)[^-]", Name) ~ gsub("(meowstic)", "meowstic-", Name),
-  grepl("(indeedee)[^-]", Name) ~ gsub("(indeedee)", "indeedee-", Name),
-  grepl("(minior)[^-]", Name) ~ gsub("(minior)", "minior-red-", Name),
+  grepl(paste0(regexMons,"[^-]"),Name) ~ gsub(regexMons, "\\1-", Name),
+  grepl("(minior)[^-]", Name) ~ gsub("(minior)", "\\1-red-", Name),
   grepl(".(confined)", Name) ~ gsub(".(confined)", "", Name),
   grepl("(complete|ultra-necrozma)", Name) ~ gsub("(complete|ultra-necrozma)", "", Name),
   grepl("\\s", Name) ~ gsub("\\s", "-", Name),
