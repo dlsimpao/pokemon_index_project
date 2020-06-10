@@ -205,7 +205,7 @@ stat_role <- tibble(
   `Physical Sweeper` = ps,
   `Special Sweeper` = ss,
   # Wall = w,
-  `Phyiscal Tank` = pt,
+  `Physical Tank` = pt,
   `Special Tank` = st
 )
 
@@ -243,7 +243,7 @@ roleDesc <- tibble(
       Here is an example of Physical Tank:<br><br>
       Steelix @ Leftovers 
       <br>Ability: Sturdy 
-      <br>EVs: 252 HP / 80 Atk / 176 Def / 0 SpA / 0 SpD / 0 Spe
+      <br>EVs: 252 HP / 80 Atk / 176 Def
       <br>Impish Nature
       <br>- Earthquake
       <br>- Rock Slide
