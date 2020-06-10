@@ -201,31 +201,35 @@ ui <-
                                       than 700 creatures that inhabit the Pokémon universe.", style = "font-size:20px"),
           br(),
           h2("Concepts"),
-          p("Pokémon Battle: in a battle, Pokémon use moves to cause the opposing Pokémon to faint (when their HP reaches zero).
+          p(strong("Pokémon Battle"), ": Pokémon use moves to cause the opposing Pokémon to faint (when their HP reaches zero).
             In a single battle turn, the Pokémon make moves sequentially, according to their speed and move priorities.", style = "font-size: 20px"),
           br(),
-          p("HP: Hit points; the amount of damage the Pokemon can take", style = "font-size:20px"),
-          p("ATK: base attack; accounts for physical damage it can give", style = "font-size:20px"),
-          p("DEF: base defense; accounts for physical damage it can take", style = "font-size:20px"),
-          p("SPATK: base special attack; accounts for special damage it can give", style = "font-size:20px"),
-          p("SPDEF: base special defense; accounts for special damage it can take", style = "font-size:20px"),
-          p("SPD: base speed; determines the move order in a battle", style = "font-size:20px"),
+          p(strong("HP"), ": Hit points; the amount of damage the Pokemon can take", style = "font-size:20px"),
+          p(strong("ATK"), ": base attack; accounts for physical damage it can give", style = "font-size:20px"),
+          p(strong("DEF"), ": base defense; accounts for physical damage it can take", style = "font-size:20px"),
+          p(strong("SPATK"), ": base special attack; accounts for special damage it can give", style = "font-size:20px"),
+          p(strong("SPDEF"), ": base special defense; accounts for special damage it can take", style = "font-size:20px"),
+          p(strong("SPD"), ": base speed; determines the move order in a battle", style = "font-size:20px"),
           br(),
-          p("EVs: Effort Values; determines the allocation of stat increases as a Pokémon levels up.", style = "font-size: 20px"),
-          p("Max EVs per stat: 252", style = "font-size:20px"),
-          p("Max Total EVs: 510", style = "font-size: 20px"),
-          p("EV training: In game, upon defeat of an opponent, certain EV stats are raised.", style = "font-size: 20px"),
-          p("IVs: Individual Values; increases base stats by one. Max: 31", style = "font-size: 20px"),
-          p("Different Natures influence base stats differently. E.g. Adamant Nature boosts the ATK stat by 10% and 
-            lowers SPATK stat by 10%.", style = "font-size: 20px"),
+          p(strong("EVs"), ": Effort Values; determines the allocation of stat increases as a Pokémon levels up.", style = "font-size: 20px"),
+          p(strong("Max EVs per stat"), ": 252", style = "font-size:20px"),
+          p(strong("Max Total EVs"), ": 510", style = "font-size: 20px"),
+          p(strong("EV training"), ": In game, upon defeat of an opponent, certain EV stats are raised.", style = "font-size: 20px"),
+          p(strong("IVs"), ": Individual Values; increases base stats by one. Max: 31", style = "font-size: 20px"),
+          p("Different Natures influence base stats differently. (e.g. Adamant Nature boosts the ATK stat by 10% and 
+            lowers SPATK stat by 10%.)", style = "font-size: 20px"),
           helpText("For practicality, EVs are capped at 508 and IVs are automatically included. The influence of Natures are assumed."),
 
           br(),
           h2("About the App"),
-          p("I created the app to the help players in the Pokémon Video Game Competition (VGC). This app has two main panels: Home and Trends.
-          The first panel describes your and your rival's Pokémon stats, and allows you to compare them to understand
-          your battle advantages. Moreover, the table below the Pokémon sprites is generated through KNN algorithm and shows the 10 nearest Pokémon
-          in terms of stats. 'Trends' portrays the your and your rival's Pokémon popularity and their prevalence in Pokémon VGC community.", style = "font-size:20px")
+          p("The app serves as a statistical tool for players in the Pokémon Video Game Competition (VGC). The app has two main components: 'Home' and 'Trends'.
+          The first page of the app displays the sprites and statistics of the two chosen Pokémon. To change the selected Pokémon, simply scroll through the select box to choose your Pokémon and your rival's Pokémon.
+          The table titled 'Top 10 Pokémon with Similar Stats' is generated through KNN algorithm, which finds the 10 closest Pokémon
+          in terms of stats. Utility-wise, this provides useful alternatives for the players. Furthermore, the radar plot is gerenated through 'plotly'
+          and gives reference to strengths and weakness of the two Pokémon. The last feature of the first page is the 'Generate Pokémon File' button on the 
+          side panel, which gathers the user inputs, formats them, and provides a pop-out for copying. The next page, 'Trends', portrays the Pokémon's popularity based on search hits over time. This provides some
+          insight into the Pokémon's prevalence in Pokémon VGC community. Moreover, the most natural battle roles are assigned to the chosen
+          Pokémon with some descriptions.", style = "font-size:20px")
         )
       )
     )
