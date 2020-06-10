@@ -120,12 +120,12 @@ server <- function(input, output, session) {
   kstat <- reactive({
     a <- data.frame(
       name = myMon(),
-      HP = apimon()$stats$base_stat[[6]],
-      Attack = apimon()$stats$base_stat[[5]],
-      Defense = apimon()$stats$base_stat[[4]],
-      `Sp..Atk` = apimon()$stats$base_stat[[3]],
-      `Sp..Def` = apimon()$stats$base_stat[[2]],
-      Speed = apimon()$stats$base_stat[[1]]
+      HP = apimon()$stats$base_stat[[1]],
+      Attack = apimon()$stats$base_stat[[2]],
+      Defense = apimon()$stats$base_stat[[3]],
+      `Sp..Atk` = apimon()$stats$base_stat[[4]],
+      `Sp..Def` = apimon()$stats$base_stat[[5]],
+      Speed = apimon()$stats$base_stat[[6]]
     )
 
     a <- a %>% mutate(Total = as.integer(rowSums(.[2:7])))
@@ -166,12 +166,12 @@ server <- function(input, output, session) {
   k2stat <- reactive({
     a <- data.frame(
       name = oppMon(),
-      HP = apimon2()$stats$base_stat[[6]],
-      Attack = apimon2()$stats$base_stat[[5]],
-      Defense = apimon2()$stats$base_stat[[4]],
-      `Sp..Atk` = apimon2()$stats$base_stat[[3]],
-      `Sp..Def` = apimon2()$stats$base_stat[[2]],
-      Speed = apimon2()$stats$base_stat[[1]]
+      HP = apimon2()$stats$base_stat[[1]],
+      Attack = apimon2()$stats$base_stat[[2]],
+      Defense = apimon2()$stats$base_stat[[3]],
+      `Sp..Atk` = apimon2()$stats$base_stat[[4]],
+      `Sp..Def` = apimon2()$stats$base_stat[[5]],
+      Speed = apimon2()$stats$base_stat[[6]]
     )
 
     a <- a %>% mutate(Total = as.integer(rowSums(.[2:7])))
@@ -223,23 +223,23 @@ server <- function(input, output, session) {
 
   bstat <- reactive({
     temp <- data.frame(
-      HP = apimon()$stats$base_stat[[6]] * 2,
-      ATK = apimon()$stats$base_stat[[5]] * 2,
-      DEF = apimon()$stats$base_stat[[4]] * 2,
-      SPATK = apimon()$stats$base_stat[[3]] * 2,
-      SPDEF = apimon()$stats$base_stat[[2]] * 2,
-      SPD = apimon()$stats$base_stat[[1]] * 2
+      HP = apimon()$stats$base_stat[[1]] * 2,
+      ATK = apimon()$stats$base_stat[[2]] * 2,
+      DEF = apimon()$stats$base_stat[[3]] * 2,
+      SPATK = apimon()$stats$base_stat[[4]] * 2,
+      SPDEF = apimon()$stats$base_stat[[5]] * 2,
+      SPD = apimon()$stats$base_stat[[6]] * 2
     )
   })
 
   bstat2 <- reactive({
     temp <- data.frame(
-      HP = apimon2()$stats$base_stat[[6]] * 2,
-      ATK = apimon2()$stats$base_stat[[5]] * 2,
-      DEF = apimon2()$stats$base_stat[[4]] * 2,
-      SPATK = apimon2()$stats$base_stat[[3]] * 2,
-      SPDEF = apimon2()$stats$base_stat[[2]] * 2,
-      SPD = apimon2()$stats$base_stat[[1]] * 2
+      HP = apimon2()$stats$base_stat[[1]] * 2,
+      ATK = apimon2()$stats$base_stat[[2]] * 2,
+      DEF = apimon2()$stats$base_stat[[3]] * 2,
+      SPATK = apimon2()$stats$base_stat[[4]] * 2,
+      SPDEF = apimon2()$stats$base_stat[[5]] * 2,
+      SPD = apimon2()$stats$base_stat[[6]] * 2
     )
   })
 
