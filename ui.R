@@ -142,7 +142,6 @@ ui <-
               div(
                 class = "card",
                 tags$img(uiOutput("sprite2"), width = "auto")
-                
               )
             )
           ),
@@ -169,30 +168,27 @@ ui <-
           "Trends",
           h1("Popularity Plot"),
           helpText("Gauged by search hits. (Proof of Concept)"),
-          actionButton("popplot","Generate Plot"),
+          actionButton("popplot", "Generate Plot"),
           br(),
           br(),
-          div(class = "polaroid",
+          div(
+            class = "polaroid",
             withSpinner(plotOutput("popularity"), type = 6, color = "red")
           ),
           br(),
           br(),
-          
+
           h1("Popular Roles"),
-          h3(strong(textOutput('role1'))),
-          p(htmlOutput('desc1')),
+          h3(strong(textOutput("role1"))),
+          p(htmlOutput("desc1")),
           tags$head(tags$style("#desc1{
                                  font-size: 20px;
-                                 }"
-          )
-          ),
-          h3(strong(textOutput('role2'))),
-          p(htmlOutput('desc2')),
+                                 }")),
+          h3(strong(textOutput("role2"))),
+          p(htmlOutput("desc2")),
           tags$head(tags$style("#desc2{
                                  font-size: 20px;
-                                 }"
-          )
-          )
+                                 }"))
         ),
         tabPanel(
           "About",
@@ -216,22 +212,21 @@ ui <-
           p("SPD: base speed; determines the move order in a battle", style = "font-size:20px"),
           br(),
           p("EVs: Effort Values; determines the allocation of stat increases as a Pokémon levels up.", style = "font-size: 20px"),
-          p("Max EVs per stat: 252",style = "font-size:20px"),
+          p("Max EVs per stat: 252", style = "font-size:20px"),
           p("Max Total EVs: 510", style = "font-size: 20px"),
           p("EV training: In game, upon defeat of an opponent, certain EV stats are raised.", style = "font-size: 20px"),
           p("IVs: Individual Values; increases base stats by one. Max: 31", style = "font-size: 20px"),
           p("Different Natures influence base stats differently. E.g. Adamant Nature boosts the ATK stat by 10% and 
             lowers SPATK stat by 10%.", style = "font-size: 20px"),
           helpText("For practicality, EVs are capped at 508 and IVs are automatically included. The influence of Natures are assumed."),
-  
+
           br(),
           h2("About the App"),
           p("I created the app to the help players in the Pokémon Video Game Competition (VGC). This app has two main panels: Home and Trends.
           The first panel describes your and your rival's Pokémon stats, and allows you to compare them to understand
           your battle advantages. Moreover, the table below the Pokémon sprites is generated through KNN algorithm and shows the 10 nearest Pokémon
           in terms of stats. 'Trends' portrays the your and your rival's Pokémon popularity and their prevalence in Pokémon VGC community.", style = "font-size:20px")
-          
+        )
       )
     )
   )
-)

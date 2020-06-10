@@ -11,13 +11,13 @@ server <- function(input, output, session) {
     if (input$mongo2 == 0) "blissey" else x2()
   })
 
-  #for gtrends
+  # for gtrends
   selected <- reactive({
-    p1 <- myMon() %>% gsub('-',' ',.)
-    p2 <- oppMon()%>% gsub('-',' ',.)
-    c(p1,p2)
-    })
-  
+    p1 <- myMon() %>% gsub("-", " ", .)
+    p2 <- oppMon() %>% gsub("-", " ", .)
+    c(p1, p2)
+  })
+
   # updates default values
   x <- eventReactive(input$mongo, {
     str_to_lower(input$mon) %>% gsub("\\s", "-", .)
@@ -26,13 +26,13 @@ server <- function(input, output, session) {
   x2 <- eventReactive(input$mongo2, {
     str_to_lower(input$mon2) %>% gsub("\\s", "-", .)
   })
-  
-  
-  
-  
 
 
-###################################################################################
+
+
+
+
+  ###################################################################################
 
 
   # REQUESTS #
@@ -120,21 +120,23 @@ server <- function(input, output, session) {
       j2$sprites$front_default
     }
   })
-  
+
   ############################ gtrends ############################
-  
+
   trend <- reactive({
-    t <- lapply(selected(), function(x) gtrends(x)$interest_over_time %>% 
-                      select(keyword, date, hits) %>% 
-                      filter(as.Date(date) > Sys.Date() - 31*3) %>% 
-                  mutate(hits = as.numeric(hits)))
-    rbind(t[[1]],t[[2]])
-           })
-  
-  new_trend <- eventReactive(input$popplot,{
+    t <- lapply(selected(), function(x) {
+      gtrends(x)$interest_over_time %>%
+        select(keyword, date, hits) %>%
+        filter(as.Date(date) > Sys.Date() - 31 * 3) %>%
+        mutate(hits = as.numeric(hits))
+    })
+    rbind(t[[1]], t[[2]])
+  })
+
+  new_trend <- eventReactive(input$popplot, {
     trend()
   })
-  
+
 
   ############################################### stats for KNN #############################################
 
@@ -175,7 +177,7 @@ server <- function(input, output, session) {
 
   kdata6 <- reactive({
     df <- (kdata3()[kdata5(), 1]) %>% str_to_title()
-    df[2:11] %>% gsub('-',' ',.)
+    df[2:11] %>% gsub("-", " ", .)
   })
 
   # Rival #
@@ -217,7 +219,7 @@ server <- function(input, output, session) {
 
   k2data6 <- reactive({
     df <- (k2data3()[k2data5(), 1]) %>% str_to_title()
-    df[2:11] %>% gsub('-',' ',.)
+    df[2:11] %>% gsub("-", " ", .)
   })
 
   # Combine Tables
@@ -232,12 +234,12 @@ server <- function(input, output, session) {
   })
 
 
-##########################################################################################################
+  ##########################################################################################################
 
 
   # Base Stats at 100
-  
-  #Include Nature influence
+
+  # Include Nature influence
 
   bstat <- reactive({
     temp <- data.frame(
@@ -448,7 +450,7 @@ server <- function(input, output, session) {
       style = "display: block; margin-left: auto; margin-right: auto"
     )
   })
-  
+
 
 
   output$`table-title` <- renderText("Top 10 Pokémon with Similar Stats to:")
@@ -511,49 +513,57 @@ server <- function(input, output, session) {
         showlegend = TRUE
       )
   })
-  
+
   # roles
   myRole <- reactive({
-    if(grepl('pikachu',myMon())){
-    stat_role %>% filter(name == 'pikachu') %>% pull(role)
-    }else{
-      stat_role %>% filter(name == myMon()) %>% pull(role)
+    if (grepl("pikachu", myMon())) {
+      stat_role %>%
+        filter(name == "pikachu") %>%
+        pull(role)
+    } else {
+      stat_role %>%
+        filter(name == myMon()) %>%
+        pull(role)
     }
   })
-  
+
   oppRole <- reactive({
-    if(grepl('pikachu',oppMon())){
-      stat_role %>% filter(name == 'pikachu') %>% pull(role)
-    }else{
-      stat_role %>% filter(name == oppMon()) %>% pull(role)
+    if (grepl("pikachu", oppMon())) {
+      stat_role %>%
+        filter(name == "pikachu") %>%
+        pull(role)
+    } else {
+      stat_role %>%
+        filter(name == oppMon()) %>%
+        pull(role)
     }
   })
-  
-  
+
+
   myRoleDesc <- reactive({
-    if(myRole() == "Physical Sweeper"){
-      s = roleDesc$ps
-    }else if(myRole() == "Special Sweeper"){
-      s = roleDesc$ss
-    }else if(myRole() == "Physical Tank"){
-      s = roleDesc$pt
-    }else{
-      s = roleDesc$st
+    if (myRole() == "Physical Sweeper") {
+      s <- roleDesc$ps
+    } else if (myRole() == "Special Sweeper") {
+      s <- roleDesc$ss
+    } else if (myRole() == "Physical Tank") {
+      s <- roleDesc$pt
+    } else {
+      s <- roleDesc$st
     }
   })
-  
+
   oppRoleDesc <- reactive({
-    if(oppRole() == "Physical Sweeper"){
-      s = roleDesc$ps
-    }else if(oppRole() == "Special Sweeper"){
-      s = roleDesc$ss
-    }else if(oppRole() == "Physical Tank"){
-      s = roleDesc$pt
-    }else{
-      s = roleDesc$st
+    if (oppRole() == "Physical Sweeper") {
+      s <- roleDesc$ps
+    } else if (oppRole() == "Special Sweeper") {
+      s <- roleDesc$ss
+    } else if (oppRole() == "Physical Tank") {
+      s <- roleDesc$pt
+    } else {
+      s <- roleDesc$st
     }
   })
-  
+
 
   #################################################################
 
@@ -580,23 +590,31 @@ server <- function(input, output, session) {
   output$caption <- renderText("*Toggle the EVs to see how it affects base stats.")
 
   # gtrend
-  
+
   output$popularity <- renderPlot({
-    ggplot() + geom_line(aes(x = date, y = hits, color = keyword),data = new_trend(), size = 2) + xlab("Date") + ylab("Hits") +
-      ggtitle("Popularity in the Past Three Months") + theme_bw()
+    ggplot() +
+      geom_line(aes(x = date, y = hits, color = keyword), data = new_trend(), size = 2) +
+      xlab("Date") +
+      ylab("Hits") +
+      ggtitle("Popularity in the Past Three Months") +
+      theme_bw()
   })
-  
+
   # roles
   output$role1 <- renderText({
-    aname <- myMon() %>% gsub('-',' ',.) %>% str_to_title()
-    paste0(aname," - ", myRole())
+    aname <- myMon() %>%
+      gsub("-", " ", .) %>%
+      str_to_title()
+    paste0(aname, " - ", myRole())
   })
-  
+
   output$role2 <- renderText({
-    aname <- oppMon() %>% gsub('-',' ',.) %>% str_to_title()
-    paste0(aname," - ",oppRole())
+    aname <- oppMon() %>%
+      gsub("-", " ", .) %>%
+      str_to_title()
+    paste0(aname, " - ", oppRole())
   })
-  
+
   output$desc1 <- renderUI(HTML(myRoleDesc()))
   output$desc2 <- renderUI(HTML(oppRoleDesc()))
   ###################### OBSERVE #########################
@@ -686,12 +704,12 @@ server <- function(input, output, session) {
   observe({
     updateSliderInput(session, "spd2", value = evlist2()$Spe)
   })
-  
-  
+
+
   ######################################################################
 
   # Pokemon Script
-  
+
   observeEvent(input$script, {
     # items
     i <- ifelse(input$item == "-", "", paste0(" @ ", input$item))

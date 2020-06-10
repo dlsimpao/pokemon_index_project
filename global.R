@@ -15,10 +15,10 @@ library(rvest)
 library(shinyjs)
 library(gtrendsR)
 
-#To install
+# To install
 packages <- c(
-  "shiny", "shinythemes", "shinycssloaders","shinyWidgets", "tidyverse", "knitr", "ggfortify",
-  "plotly", "FNN", "jsonlite", "lubridate", "httr","rvest", "shinyjs", "gtrendsR"
+  "shiny", "shinythemes", "shinycssloaders", "shinyWidgets", "tidyverse", "knitr", "ggfortify",
+  "plotly", "FNN", "jsonlite", "lubridate", "httr", "rvest", "shinyjs", "gtrendsR"
 )
 
 # Inspired by https://github.com/ThiagoValentimMarques/The-ten-most-similar-players-Pro-Evolution-Soccer-2019
@@ -171,7 +171,7 @@ regexMons <- "(castform|kyogre|groudon|deoxys|wormadam|rotom|giratina|basculin|d
 kyurem|meloetta|aegislash|oricorio|shaymin|keldeo|lycanroc|wishiwashi|gourgeist|pumpkaboo|meowstic|indeedee)"
 
 temp <- temp %>% mutate(Name = case_when(
-  grepl(paste0(regexMons,"[^-]"),Name) ~ gsub(regexMons, "\\1-", Name),
+  grepl(paste0(regexMons, "[^-]"), Name) ~ gsub(regexMons, "\\1-", Name),
   grepl("(minior)[^-]", Name) ~ gsub("(minior)", "\\1-red-", Name),
   grepl(".(confined)", Name) ~ gsub(".(confined)", "", Name),
   grepl("(complete|ultra-necrozma)", Name) ~ gsub("(complete|ultra-necrozma)", "", Name),
@@ -188,26 +188,28 @@ stat_info <- left_join(api_mons, temp, by = c("name" = "Name")) %>%
 
 # Pokemon Roles based on stats
 
-#Physical Sweeper
+# Physical Sweeper
 ps <- stat_info[[4]] + stat_info[[8]]
-#Special Sweeper
+# Special Sweeper
 ss <- stat_info[[6]] + stat_info[[8]]
-#Wall
+# Wall
 w <- stat_info[[3]] + stat_info[[5]] + stat_info[[7]]
-#Physical Tank
+# Physical Tank
 pt <- stat_info[[4]] + stat_info[[5]]
-#Special Tank
-st <- stat_info[[6]] + stat_info[[7]] 
+# Special Tank
+st <- stat_info[[6]] + stat_info[[7]]
 
 
-stat_role <- tibble(name = stat_info[1],
-                        `Physical Sweeper` = ps,
-                        `Special Sweeper` = ss,
-                        #Wall = w,
-                        `Phyiscal Tank` = pt,
-                        `Special Tank` = st)
+stat_role <- tibble(
+  name = stat_info[1],
+  `Physical Sweeper` = ps,
+  `Special Sweeper` = ss,
+  # Wall = w,
+  `Phyiscal Tank` = pt,
+  `Special Tank` = st
+)
 
-role <- colnames(stat_role)[max.col(stat_role[2:5], ties.method = "first")+1]
+role <- colnames(stat_role)[max.col(stat_role[2:5], ties.method = "first") + 1]
 
 set.seed(151)
 
@@ -216,7 +218,8 @@ stat_role <- stat_role %>%
 
 
 ############### Role Desc ###################
-roleDesc <- tibble(ps = "A Pokémon who has good Attack and Speed stats. To do well, it needs outspeed the opponent's team to take them down.
+roleDesc <- tibble(
+  ps = "This Pokémon has good Attack and Speed stats. To do well, it needs to outspeed the opponent's team and deal heavy damage.
     Here is an example of Physical Sweeper:<br><br>
       Lucario @ Life Orb
       <br>Ability: Inner Focus
@@ -226,7 +229,7 @@ roleDesc <- tibble(ps = "A Pokémon who has good Attack and Speed stats. To do w
       <br>- Close Combat
       <br>- ExtremeSpeed
       <br>- Crunch",
-      ss = "A Pokémon who has good Special Attack and Speed stats. To do well, it needs outspeed the opponent's team to take them down.
+  ss = "This Pokémon has good Special Attack and Speed stats. To do well, it needs to outspeed the opponent's team and deal heavy damage.
     Here is an example of Special Sweeper:<br><br>
       Starmie @ Leftovers
       <br>Ability: Natural Cure
@@ -236,7 +239,7 @@ roleDesc <- tibble(ps = "A Pokémon who has good Attack and Speed stats. To do w
       <br>- Ice Beam
       <br>- Thunderbolt
       <br>- Recover",
-      pt = "A Pokémon who has good Attack and Defense stats. To do well, it needs brunt the opponent's team and wear them down. 
+  pt = "This Pokémon has good Attack and Defense stats. To do well, it must take the brunt of the opposing team's damage and wear them down.
       Here is an example of Physical Tank:<br><br>
       Steelix @ Leftovers 
       <br>Ability: Sturdy 
@@ -245,8 +248,8 @@ roleDesc <- tibble(ps = "A Pokémon who has good Attack and Speed stats. To do w
       <br>- Earthquake
       <br>- Rock Slide
       <br>- Explosion
-      <br>- Toxic" ,
-      st = "A Pokémon who has good Special Attack and Special Defense stats. To do well, it needs brunt the opponent's team and wear them down.
+      <br>- Toxic",
+  st = "This Pokémon has good Special Attack and Special Defense stats. To do well, it must take the brunt of the opposing team's damage and wear them down.
     Here is an example of Special Tank:<br><br>
       Blissey @ Leftovers
       <br>Ability: Natural Cure
@@ -255,4 +258,5 @@ roleDesc <- tibble(ps = "A Pokémon who has good Attack and Speed stats. To do w
       <br>- Seismic Toss
       <br>- Toxic
       <br>- Soft-Boiled
-      <br>- Heal Bell")
+      <br>- Heal Bell"
+)
