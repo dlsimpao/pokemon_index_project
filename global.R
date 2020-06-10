@@ -185,3 +185,74 @@ temp <- temp %>% mutate(Name = case_when(
 stat_info <- left_join(api_mons, temp, by = c("name" = "Name")) %>%
   select(name, Total, HP, Attack, Defense, `Sp..Atk`, `Sp..Def`, Speed) %>%
   drop_na()
+
+# Pokemon Roles based on stats
+
+#Physical Sweeper
+ps <- stat_info[[4]] + stat_info[[8]]
+#Special Sweeper
+ss <- stat_info[[6]] + stat_info[[8]]
+#Wall
+w <- stat_info[[3]] + stat_info[[5]] + stat_info[[7]]
+#Physical Tank
+pt <- stat_info[[4]] + stat_info[[5]]
+#Special Tank
+st <- stat_info[[6]] + stat_info[[7]] 
+
+
+stat_role <- tibble(name = stat_info[1],
+                        `Physical Sweeper` = ps,
+                        `Special Sweeper` = ss,
+                        #Wall = w,
+                        `Phyiscal Tank` = pt,
+                        `Special Tank` = st)
+
+role <- colnames(stat_role)[max.col(stat_role[2:5], ties.method = "first")+1]
+
+set.seed(151)
+
+stat_role <- stat_role %>%
+  mutate(role = role)
+
+
+############### Role Desc ###################
+roleDesc <- tibble(ps = "A Pokémon who has good Attack and Speed stats. To do well, it needs outspeed the opponent's team to take them down.
+    Here is an example of Physical Sweeper:<br><br>
+      Lucario @ Life Orb
+      <br>Ability: Inner Focus
+      <br>EVs: 4 HP / 252 Atk / 252 Spe
+      <br>Adamant nature 
+      <br>- Swords Dance
+      <br>- Close Combat
+      <br>- ExtremeSpeed
+      <br>- Crunch",
+      ss = "A Pokémon who has good Special Attack and Speed stats. To do well, it needs outspeed the opponent's team to take them down.
+    Here is an example of Special Sweeper:<br><br>
+      Starmie @ Leftovers
+      <br>Ability: Natural Cure
+      <br>EVs: 42 HP / 216 Spe / 252 SpA
+      <br>Timid Nature 
+      <br>- Surf
+      <br>- Ice Beam
+      <br>- Thunderbolt
+      <br>- Recover",
+      pt = "A Pokémon who has good Attack and Defense stats. To do well, it needs brunt the opponent's team and wear them down. 
+      Here is an example of Physical Tank:<br><br>
+      Steelix @ Leftovers 
+      <br>Ability: Sturdy 
+      <br>EVs: 252 HP / 80 Atk / 176 Def / 0 SpA / 0 SpD / 0 Spe
+      <br>Impish Nature
+      <br>- Earthquake
+      <br>- Rock Slide
+      <br>- Explosion
+      <br>- Toxic" ,
+      st = "A Pokémon who has good Special Attack and Special Defense stats. To do well, it needs brunt the opponent's team and wear them down.
+    Here is an example of Special Tank:<br><br>
+      Blissey @ Leftovers
+      <br>Ability: Natural Cure
+      <br>EVs: 252 HP / 252 Def / 4 SpD
+      <br>Bold Nature
+      <br>- Seismic Toss
+      <br>- Toxic
+      <br>- Soft-Boiled
+      <br>- Heal Bell")
