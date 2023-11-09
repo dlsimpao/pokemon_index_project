@@ -18,7 +18,7 @@ get_uri_list = function(uri, limit, outfile){
   pk_df = as.data.frame(data$results)
   
   # write data frame to csv
-  write.csv(pk_df, file=paste0("api_data/raw/",outfile,".csv"), row.names=FALSE)
+  write.csv(pk_df, file=paste0("data/raw/api_",outfile,".csv"), row.names=FALSE)
 }
 
 # https://pokeapi.co/api/v2/pokemon/{id or name}/encounters

@@ -41,6 +41,8 @@ hype_names <- api_mons[grepl("-", api_mons$name), ]
 # list of natures
 natures <- jnat$results$name
 
+
+
 # Web Scraping #
 
 # `html`: sprites
