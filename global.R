@@ -1,4 +1,9 @@
-# packages
+# install packages from file
+packages <- readLines("packages.txt")
+
+install.packages(packages)
+
+# setup
 library(shiny)
 library(shinythemes)
 library(shinycssloaders)
@@ -15,21 +20,6 @@ library(rvest)
 library(shinyjs)
 library(gtrendsR)
 
-# To install
-packages <- c(
-  "shiny", "shinythemes", "shinycssloaders", "shinyWidgets", "tidyverse", "knitr", "ggfortify",
-  "plotly", "FNN", "jsonlite", "lubridate", "httr", "rvest", "shinyjs", "gtrendsR"
-)
-
-# Inspired by https://github.com/ThiagoValentimMarques/The-ten-most-similar-players-Pro-Evolution-Soccer-2019
-
-
-
-# package.check <- lapply(packages, FUN = function(x) {
-#   if (!require(x, character.only = TRUE)) {
-#     install.packages(x, dependencies = TRUE)
-#   }
-# })
 
 
 

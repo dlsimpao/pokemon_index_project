@@ -1,0 +1,17 @@
+shiny
+shinythemes
+shinycssloaders
+shinyWidgets
+tidyverse
+knitr
+ggfortify
+plotly
+FNN
+jsonlite
+lubridate
+httr
+rvest
+shinyjs
+gtrendsR
+odbc
+
