@@ -48,9 +48,9 @@ merged_data = separate(merged_data, "ivs", into = c("iv_hp", "iv_atk","iv_def",
 merged_data = merged_data %>% 
   mutate(generation = case_when(
     as.numeric(id.x) <= 151 ~ "I",
-    as.numeric(id.x) <= 252 ~ "II",
+    as.numeric(id.x) <= 251 ~ "II",
     as.numeric(id.x) <= 386 ~ "III",
-    as.numeric(id.x) <= 493 ~ "IV",
+    as.numeric(id.x) <= 494 ~ "IV",
     as.numeric(id.x) <= 649 ~ "V",
     as.numeric(id.x) <= 721 ~ "VI",
     as.numeric(id.x) <= 809 ~ "VII",
