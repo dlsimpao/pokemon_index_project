@@ -1,5 +1,13 @@
-# PokeApp
-App for Pokemon-related data
+# pokemon_index_project
 
-Main Components: global.R, server.R, ui.R, www folder  
-Run global.R to start the app
+Passion project that showcases fundamental data engineering skills
+
+## Data Ingestion
+
+### API CALLS
+
+* Data is gathered from PokeAPI
+
+### Web scraping
+
+* Supplemental data is gathered from scraping PokemonDB website.
