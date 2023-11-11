@@ -11,14 +11,15 @@ stringify_list <- function(item_list) {
 }
 
 # to do
-# get all pokemon's attributes
-# get pokemon shape and merge
+# get sprites (future) as a separate dataframe
+# get other ids
 
 tidy <- loadNamespace("tidyverse")
 jsl <- loadNamespace("jsonlite")
-pokemon_uri_list = read_csv("data/raw/api_pokemon.csv", col_types = "c") %>% head(3)
 
-pokemon_shape_list = read_csv("data/raw/api_pokeshape.csv", col_types = "c") %>% head(1)
+pokemon_uri_list = read_csv("data/raw/api_pokemon.csv", col_types = "c")
+pokemon_shape_list = read_csv("data/raw/api_pokeshape.csv", col_types = "c")
+
 # to consider comparing
 # abilities
 # id
@@ -30,6 +31,8 @@ pokemon_shape_list = read_csv("data/raw/api_pokeshape.csv", col_types = "c") %>%
 # weight
 # shape
 
+### schemas ###
+
 # base_stat_name = "hp,attack,defense,special-attack,special-defense,speed",
 pokedex = data.frame(
   id = character(0),
@@ -38,66 +41,105 @@ pokedex = data.frame(
   ability_list = character(0),
   moveset = character(0),
   stats = character(0),
-  base_stats = character(0),
+  ivs = character(0),
+  forms = character(0),
   height = character(0),
   weight = character(0),
   area_encounter = character(0)
+) 
+
+pokeshapes = data.frame(
+  id = character(0),
+  name = character(0),
+  pokemon = character(0)
 )
 
-for (mon in pokemon_uri_list$url) {
-  tryCatch({
-    response = httr::GET(mon)
-    
-    sink(
-      "refactor/FN_aggregate_pokemon_api_level2_log.txt",
-      type = "output",
-      append = FALSE
-    )
-    message(paste0("CODE: ", response$status_code,
-                   " : ", response$url))
-    
-    data = content(response, as = "text") %>% jsl$fromJSON()
-    
-    to_process = list(
-      types = data$types$name,
-      abiltiies = data$abilities$ability$name,
-      moveset = data$moves$move$name,
-      stats = data$stats$base_stat,
-      base_stats = data$stats$effort
-    )
-    
-    processed = lapply(to_process, function(col)
-      stringify_list(col))
-    
-    new_record = data.frame(
-      id = data$id,
-      name = data$name,
-      type_list = processed$types,
-      ability_list = processed$abiltiies,
-      moveset = processed$moveset,
-      stats = processed$stats,
-      base_stats = processed$base_stats,
-      height = data$height,
-      weight = data$weight,
-      area_encounter = data$location_area_encounters
-    )
-    
-    pokedex = rbind(pokedex, new_record)
-    message(paste0("success: added ", data$name, " to pokedex"))
-    
-    gc()
-  }, error = function(e) {
-    message(paste0("ERROR processing ", mon))
-    message(e)
-  })
-}
 
-# for (mon in pokemon_uri_list$url) {
+sink(
+  "refactor/LOG_aggregate_pokemon_api_level2.log",
+  append = FALSE
+)
+
+### Inserting data ###
+# print(paste0("-------------------- POKEDEX --------------------"))
+# for (uri in pokemon_uri_list$url) {
+# 
 #   tryCatch({
-#     response = httr::GET(mon)
-#   },error = function(e){
-#     message(e)
-#   }
-sink()
+#     response = httr::GET(uri)
+#     print(paste0("CODE: ", response$status_code,
+#                    " : ", response$url))
+#     
+#     pkm = content(response, as = "text") %>% jsl$fromJSON()
+#     
+#     to_process = list(
+#       types = pkm$types$type$name,
+#       abiltiies = pkm$abilities$ability$name,
+#       moveset = pkm$moves$move$name,
+#       stats = pkm$stats$base_stat,
+#       ivs = pkm$stats$effort,
+#       forms = pkm$forms$name
+#     )
+#     
+#     processed = lapply(to_process, function(col)
+#       stringify_list(col))
+#     
+#     new_record = data.frame(
+#       id = pkm$id,
+#       name = pkm$name,
+#       type_list = processed$types,
+#       ability_list = processed$abiltiies,
+#       moveset = processed$moveset,
+#       stats = processed$stats,
+#       ivs = processed$base_stats,
+#       forms = processed$forms,
+#       height = pkm$height,
+#       weight = pkm$weight,
+#       area_encounter = pkm$location_area_encounters
+#     )
+#     
+#     pokedex = rbind(pokedex, new_record)
+#     print(paste0("success: added ", pkm$name, " to pokedex"))
+#     message(paste0("success: added ", pkm$name, " to pokedex"))
+#     gc()
+#   }, error = function(e) {
+#     print(paste0("ERROR processing ", uri))
+#     print(e)
+#   })
+# }
 
-print(head(pokedex))
+# print(paste0("-------------------- SHAPES --------------------"))
+# 
+# for (uri in pokemon_shape_list$url) {
+#   tryCatch({
+#     response = httr::GET(uri)
+#     shp = content(response, as="text") %>% jsl$fromJSON()
+# 
+#     to_process = list(
+#       pokemon = shp$pokemon_species$name
+#     )
+# 
+#     processed = lapply(to_process, function(col)
+#       stringify_list(col))
+# 
+#     new_record = data.frame(
+#       id = shp$id,
+#       name= shp$name,
+#       pokemon = processed$pokemon
+#     )
+# 
+#     pokeshapes = rbind(pokeshapes, new_record)
+#     print(paste0("success: added ", shp$name, " to pokeshapes table"))
+# 
+#     gc()
+# 
+#   },error = function(e){
+#     print(paste0("ERROR processing ", uri))
+#     print(e)
+#   })
+# }
+
+
+write.csv(pokedex, "data/raw_level_2/pokedex.csv", row.names=FALSE)
+# write.csv(pokeshapes, "data/raw_level_2/pokeshapes.csv", row.names=FALSE)
+
+sink()
