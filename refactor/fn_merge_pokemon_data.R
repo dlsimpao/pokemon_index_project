@@ -43,8 +43,24 @@ merged_data = separate(merged_data, "stats", into = c("stat_hp", "stat_atk","sta
 merged_data = separate(merged_data, "ivs", into = c("iv_hp", "iv_atk","iv_def",
                                                       "iv_sp_atk","iv_sp_def","iv_speed"))
 
+# create est_generation column
+
+merged_data = merged_data %>% 
+  mutate(est_generation = case_when(
+    as.numeric(id.x) <= 151 ~ "I",
+    as.numeric(id.x) <= 252 ~ "II",
+    as.numeric(id.x) <= 386 ~ "III",
+    as.numeric(id.x) <= 493 ~ "IV",
+    as.numeric(id.x) <= 649 ~ "V",
+    as.numeric(id.x) <= 721 ~ "VI",
+    as.numeric(id.x) <= 809 ~ "VII",
+    as.numeric(id.x) <= 905 ~ "VIII",
+    as.numeric(id.x) <= 1017 ~ "IX",
+    TRUE ~ "yet to be discovered"
+  ))
+
 merged_pokedata = merged_data %>% 
-  select(id.x, name,
+  select(id.x, name, est_generation,
          type_1, type_2,
          ability_1, ability_2, ability_3,
          stat_hp, stat_atk, stat_def, stat_sp_atk, stat_sp_def, stat_speed,
