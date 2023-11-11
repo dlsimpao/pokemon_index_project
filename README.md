@@ -4,7 +4,7 @@ Passion project that showcases fundamental data engineering skills
 
 ## Data Ingestion
 
-### API CALLS
+### API calls
 
 * Data is gathered from PokeAPI
 

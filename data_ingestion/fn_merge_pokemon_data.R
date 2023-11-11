@@ -46,7 +46,7 @@ merged_data = separate(merged_data, "ivs", into = c("iv_hp", "iv_atk","iv_def",
 # create est_generation column
 
 merged_data = merged_data %>% 
-  mutate(est_generation = case_when(
+  mutate(generation = case_when(
     as.numeric(id.x) <= 151 ~ "I",
     as.numeric(id.x) <= 252 ~ "II",
     as.numeric(id.x) <= 386 ~ "III",
@@ -60,7 +60,7 @@ merged_data = merged_data %>%
   ))
 
 merged_pokedata = merged_data %>% 
-  select(id.x, name, est_generation,
+  select(id.x, name, generation,
          type_1, type_2,
          ability_1, ability_2, ability_3,
          stat_hp, stat_atk, stat_def, stat_sp_atk, stat_sp_def, stat_speed,
@@ -68,6 +68,6 @@ merged_pokedata = merged_data %>%
          moveset, forms, height, weight, shape) %>% 
   rename(id = id.x)
 
-write.csv(merged_pokedata, "data/processed/pokedex.csv")
+write.csv(merged_pokedata, "data/processed/pokedex.csv", row.names=FALSE)
 
 gc()

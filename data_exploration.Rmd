@@ -1,0 +1,189 @@
+```{r}
+setwd("R:/Users/rsimpao/repo=rstudio/pokemon_index_project")
+
+# install packages from file
+# packages <- readLines("packages.txt")
+# install.packages(packages)
+
+library(conflicted)
+library(tidyverse)
+library(ggplot2)
+```
+
+```{r}
+pokedex = read_csv("data/processed/pokedex.csv", col_types = cols(.default = "c"))
+
+pokedex = pokedex %>%
+  mutate(across(starts_with("stat_"), as.numeric))
+
+gen1 = pokedex %>% 
+  dplyr::filter(.$generation == "I")
+
+gen2 = pokedex %>% 
+  dplyr::filter(.$generation == "II")
+
+gen3 = pokedex %>% 
+  dplyr::filter(.$generation == "III")
+
+gen4 = pokedex %>% 
+  dplyr::filter(.$generation == "IV")
+
+gen5 = pokedex %>% 
+  dplyr::filter(.$generation == "V")
+
+gen6 = pokedex %>% 
+  dplyr::filter(.$generation == "VI")
+
+gen7 = pokedex %>% 
+  dplyr::filter(.$generation == "VII")
+
+gen8 = pokedex %>% 
+  dplyr::filter(.$generation == "VIII")
+
+gen9 = pokedex %>% 
+  dplyr::filter(.$generation == "IX")
+
+all_gens = list(gen1=gen1,
+                gen2=gen2,
+                gen3=gen3,
+                gen4=gen4,
+                gen5=gen5,
+                gen6=gen6,
+                gen7=gen7,
+                gen8=gen8,
+                gen9=gen9)
+```
+
+```{r}
+create_plot = function(col, plot_type="hist"){
+  if(plot_type == "normal"){
+    plot(dnorm(col), main=plot_type)
+  }else if(plot_type == "hist"){
+    hist(col)
+  }else{
+    plot(col, main=plot_type)
+  }
+}
+
+create_ggplot = function(col){
+  
+}
+```
+
+```{r}
+# comparing the hp distribution between all generations
+
+for(gen in all_gens){
+  create_plot(gen$stat_hp)
+}
+```
+
+```{r}
+for(gen in all_gens){
+  create_plot(gen$stat_atk)
+}
+```
+
+```{r}
+for(gen in all_gens){
+  create_plot(gen$stat_def)
+}
+```
+
+```{r}
+for(gen in all_gens){
+  create_plot(gen$stat_sp_atk)
+}
+```
+
+```{r}
+for(gen in all_gens){
+  create_plot(gen$stat_sp_def)
+}
+```
+
+```{r}
+for(gen in all_gens){
+  create_plot(gen$stat_speed)
+}
+```
+# Parametric Tests:
+t-Test (Student's t-Test): Compares means of two groups.
+ANOVA (Analysis of Variance): Compares means of three or more groups.
+Chi-Square Test: Tests independence between categorical variables.
+Paired t-Test: Compares means of two related groups.
+F-Test: Tests equality of variances in two or more groups.
+Z-Test: Compares a sample mean to a known population mean.
+
+# Non-Parametric Tests:
+Mann-Whitney U Test: Non-parametric version of t-Test for two groups.
+Kruskal-Wallis Test: Non-parametric version of ANOVA.
+Wilcoxon Signed-Rank Test: Non-parametric paired t-Test.
+Fisher's Exact Test: Tests independence in contingency tables (small sample sizes).
+
+# Correlation and Regression:
+Pearson Correlation Coefficient: Measures linear correlation.
+Spearman's Rank Correlation: Assesses monotonic relationships.
+Linear Regression: Predicts a dependent variable based on one or more independent variables.
+Logistic Regression: Models the probability of a binary outcome.
+
+# Survival Analysis:
+Kaplan-Meier Estimator: Estimates survival functions.
+Cox Proportional Hazards Model: Examines the association between survival time and explanatory variables.
+
+# Multivariate Analysis:
+Factor Analysis: Identifies underlying factors influencing observed variables.
+Principal Component Analysis (PCA): Reduces dimensionality of data while preserving variance.
+
+# Multinomial Data Analysis:
+Multinomial Logistic Regression: Models categorical outcomes with more than two levels.
+
+# Time Series Analysis:
+Autocorrelation Tests: Checks for correlation in time series data.
+ARIMA Modeling: Models time series data with autoregressive, moving average components.
+
+# Other Specialized Tests:
+Mantel Test: Assesses correlation between matrices.
+McNemar's Test: Compares paired proportions.
+Meta-Analysis Techniques: Combines results from multiple studies quantitatively.
+
+```{r}
+# chi-squared test
+chi_table = table(pokedex$generation, pokedex$type_1)
+
+chi_sq_test = chisq.test(chi_table)
+
+print(chi_sq_test)
+```
+
+Here are some intriguing questions related to Pokémon that could be interesting to explore or analyze:
+
+### 1. Pokémon Distribution & Rarity:
+- **Rarity Analysis:** Which Pokémon are the rarest in each generation, and how does their rarity evolve across different game releases?
+- **Biome and Habitat Analysis:** How do Pokémon distributions vary in different in-game biomes or habitats, and what factors influence these distributions?
+
+### 2. Pokémon Stat and Type Analysis:
+- **Type Frequency:** Which Pokémon types are most prevalent in each generation, and has there been a shift in the prevalence of certain types across generations?
+- **Stat Trends:** How have base stats of Pokémon (HP, Attack, Defense, etc.) evolved over different generations?
+
+### 3. Battle and Strategy Analysis:
+- **Competitive Usage:** Which Pokémon are commonly used in competitive battling formats, and how has their usage trended over time?
+- **Effectiveness Analysis:** How effective are different types against each other, and have these effectiveness trends changed across generations?
+
+### 4. Evolution and Metagame Analysis:
+- **Evolutionary Trends:** Do certain Pokémon tend to evolve more frequently than others, and how does the method of evolution vary among generations?
+- **Metagame Shifts:** How have changes in game mechanics and introduced mechanics influenced the metagame and player strategies over time?
+
+### 5. Cultural and Community Impact:
+- **Cultural Influences:** Have regional or cultural factors influenced the design or characteristics of Pokémon in different generations?
+- **Community Preferences:** What are the preferences of the Pokémon community, and have they influenced the direction of the Pokémon series?
+
+### 6. Narrative and Story Analysis:
+- **Storyline Analysis:** How have storylines, character development, or in-game events evolved in different generations of Pokémon games?
+- **Legendary Pokémon Impact:** Analyzing the significance and prevalence of legendary Pokémon across generations and their impact on the game lore.
+
+### 7. Player Behavior and Interaction:
+- **Trading Patterns:** Analyzing trading patterns and preferred Pokémon for in-game trades across different regions or time periods.
+- **Player Interactions:** Studying player behaviors, such as Pokémon catch rates or interaction with specific in-game events.
+
+Each of these questions offers avenues for interesting analyses and insights into various aspects of the Pokémon series, including gameplay mechanics, player behavior, game design, and community impact. Depending on your interests and available data, exploring these areas can lead to intriguing findings in the world of Pokémon.
