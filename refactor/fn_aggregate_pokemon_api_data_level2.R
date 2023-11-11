@@ -4,7 +4,6 @@ library(conflicted)
 library(httr)
 library(tidyverse)
 library(jsonlite)
-library(odbc)
 
 stringify_list <- function(item_list) {
   return(paste(item_list, collapse = ","))
@@ -14,7 +13,6 @@ stringify_list <- function(item_list) {
 # get sprites (future) as a separate dataframe
 # get other ids
 
-tidy <- loadNamespace("tidyverse")
 jsl <- loadNamespace("jsonlite")
 
 pokemon_uri_list = read_csv("data/raw/api_pokemon.csv", col_types = "c")
